@@ -1,0 +1,29 @@
+{
+    "name": "rozeo/php-oauth",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.30",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpunit/phpunit": "^9.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "rozeo",
+            "email": "st.prog0908@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rozeo\\OAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
