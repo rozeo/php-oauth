@@ -17,6 +17,4 @@ interface OAuthCredentialsInterface
     public function getAccessTokenUrl(): string;
 
     public function getScopes(): array;
-
-    // public function
 }
