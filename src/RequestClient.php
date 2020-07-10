@@ -4,6 +4,7 @@
 namespace Rozeo\OAuth;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 class RequestClient extends Client
 {
@@ -16,16 +17,18 @@ class RequestClient extends Client
     {
         $this->token = $token;
 
-        if ($this->checkValidToken()) {
+        if (!$this->checkValidToken()) {
             throw new \InvalidArgumentException("Token is invalid.");
         }
 
-        parent::__construct(
-            array_merge(
-                $config,
-                ['headers' => ['Authorization' => "{$token->getTokenType()} {$token->getAccessToken()}"]]
-            )
+        $config['headers'] = array_merge(
+            $config['headers'] ?? [],
+            [
+                'Authorization' => "{$this->token->getTokenType()} {$this->token->getAccessToken()}"
+            ]
         );
+
+        parent::__construct($config);
     }
 
     public function getToken(): AccessTokenInterface
