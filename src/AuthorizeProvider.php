@@ -65,7 +65,7 @@ class AuthorizeProvider
      * @return AccessTokenInterface
      * @throws AuthorizeException
      */
-    public function refreshToken(AccessToken $token): AccessTokenInterface
+    public function refreshToken(AccessTokenInterface $token): AccessTokenInterface
     {
         if (!$token->hasExpired()) {
             throw new \InvalidArgumentException('Token has not expired yet.');
