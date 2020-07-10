@@ -13,27 +13,45 @@ class Code implements  GrantInterface
      */
     private $code;
 
+    /**
+     * Code constructor.
+     * @param string $code
+     */
     public function __construct(string $code = '')
     {
         $this->code = $code;
     }
 
+    /**
+     * @param string $code
+     * @return $this
+     */
     public function setCode(string $code): self
     {
         $this->code = $code;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getResponseType(): string
     {
         return 'code';
     }
 
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return 'authorization_code';
     }
 
+    /**
+     * @return array<string, mixed>
+     * @throws \InvalidArgumentException
+     */
     public function getCredentialParams(): array
     {
         if ($this->code === '') {

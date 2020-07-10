@@ -6,7 +6,7 @@ namespace Rozeo\OAuth;
 
 use GuzzleHttp\Client as Client;
 
-class AuthorizeProvider
+class AuthorizeProvider implements AuthorizeProviderInterface
 {
     /**
      * @var OAuthCredentialsInterface
@@ -26,10 +26,15 @@ class AuthorizeProvider
         ]);
     }
 
-    public function getAuthorizeUrl(GrantInterface $grant): string
+    /**
+     * @param GrantInterface $grant
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    public function getAuthorizeRedirectUrl(GrantInterface $grant): string
     {
         if ($grant->getResponseType() === '') {
-            throw new \InvalidArgumentException("{get_class($grant)} has no response type.");
+            throw new \InvalidArgumentException(get_class($grant) . " has no response type.");
         }
 
         return $this->credentials->getAuthorizeUrl() . '?' . http_build_query([
@@ -42,7 +47,7 @@ class AuthorizeProvider
     }
 
     /**
-     * @param GrantInterface
+     * @param GrantInterface $grant
      * @return AccessTokenInterface
      * @throws AuthorizeException
      */
@@ -61,11 +66,11 @@ class AuthorizeProvider
     }
 
     /**
-     * @param AccessToken $token
+     * @param AccessTokenInterface $token
      * @return AccessTokenInterface
      * @throws AuthorizeException
      */
-    public function refreshToken(AccessTokenInterface $token): AccessTokenInterface
+    public function refreshAccessToken(AccessTokenInterface $token): AccessTokenInterface
     {
         if (!$token->hasExpired()) {
             throw new \InvalidArgumentException('Token has not expired yet.');
@@ -82,7 +87,7 @@ class AuthorizeProvider
     }
 
     /**
-     * @param array $params
+     * @param array<string, mixed> $params
      * @return AccessTokenInterface
      * @throws AuthorizeException
      */

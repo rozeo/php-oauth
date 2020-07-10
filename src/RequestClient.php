@@ -13,6 +13,12 @@ class RequestClient extends Client
      */
     private $token;
 
+    /**
+     * RequestClient constructor.
+     * @param AccessTokenInterface $token
+     * @param array<string, mixed> $config
+     * @throws \InvalidArgumentException|\BadMethodCallException
+     */
     public function __construct(AccessTokenInterface $token, array $config = [])
     {
         $this->token = $token;
@@ -36,6 +42,10 @@ class RequestClient extends Client
         return $this->token;
     }
 
+    /**
+     * @return bool
+     * @throws \BadMethodCallException
+     */
     protected function checkValidToken(): bool
     {
         if ($this->token->hasExpired()) {

@@ -7,7 +7,7 @@ namespace Rozeo\OAuth;
 class AccessToken implements AccessTokenInterface
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $params;
     /**
@@ -29,10 +29,14 @@ class AccessToken implements AccessTokenInterface
     private $tokenCreatedAt;
 
     /**
-     * @var int|mixed
+     * @var int
      */
     private $expireIn;
 
+    /**
+     * AccessToken constructor.
+     * @param array<string, mixed> $params
+     */
     public function __construct(array $params)
     {
         $this->params = $params;
@@ -53,7 +57,8 @@ class AccessToken implements AccessTokenInterface
     }
 
     /**
-     * @return string|null
+     * @return string
+     * @throws \InvalidArgumentException
      */
     public function getRefreshToken(): string
     {
@@ -71,6 +76,9 @@ class AccessToken implements AccessTokenInterface
         return $this->tokenType;
     }
 
+    /**
+     * @return bool
+     */
     public function hasExpired(): bool
     {
         if ($this->expireIn < 0) {
@@ -80,6 +88,9 @@ class AccessToken implements AccessTokenInterface
         return time() > $this->expireIn + $this->tokenCreatedAt;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getOriginalParams(): array
     {
         return $this->params;

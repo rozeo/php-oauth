@@ -17,6 +17,11 @@ class Password implements GrantInterface
      */
     private $password;
 
+    /**
+     * Password constructor.
+     * @param string $name
+     * @param string $password
+     */
     public function __construct(string $name = '', string $password = '')
     {
         $this->name = $name;
@@ -32,11 +37,18 @@ class Password implements GrantInterface
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return 'password';
     }
 
+    /**
+     * @return array<string, mixed>
+     * @throws \InvalidArgumentException
+     */
     public function getCredentialParams(): array
     {
         if ($this->name === '') {
@@ -53,12 +65,20 @@ class Password implements GrantInterface
         ];
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setUsername(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;

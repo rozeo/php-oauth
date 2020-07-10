@@ -1,7 +1,9 @@
 {
     "name": "rozeo/php-oauth",
     "type": "library",
+    "description": "OAuth easy wrapper for PHP",
     "require": {
+        "php": "^7.1",
         "guzzlehttp/guzzle": "^6.5"
     },
     "require-dev": {
